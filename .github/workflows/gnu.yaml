@@ -3,6 +3,7 @@ name: GNU
 on:
   push:
     branches:
+      - aot_monorepo_compat
       - main
   pull_request:
   workflow_dispatch:
