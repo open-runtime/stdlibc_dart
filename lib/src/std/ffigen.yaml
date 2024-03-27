@@ -22,6 +22,8 @@ headers:
     - "/usr/include/unistd.h"
     - "/usr/include/utmpx.h"
     - "/usr/include/wordexp.h"
+    - "/usr/include/semaphore.h"
+    - "/usr/include/sys/types.h"
 globals:
   exclude:
     - ".*"

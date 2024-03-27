@@ -27,6 +27,8 @@ headers:
     - "/usr/include/x86_64-linux-gnu/sys/stat.h"
     - "/usr/include/x86_64-linux-gnu/sys/sysinfo.h"
     - "/usr/include/x86_64-linux-gnu/sys/utsname.h"
+    - "/usr/include/x86_64-linux-gnu/sys/semaphore.h"
+    - "/usr/include/x86_64-linux-gnu/sys/types.h"
 globals:
   exclude:
     - ".*"

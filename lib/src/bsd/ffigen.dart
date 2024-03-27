@@ -8,24 +8,19 @@ import 'dart:ffi' as ffi;
 /// BSD C Library
 class BsdLibC {
   /// Holds the symbol lookup function.
-  final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-      _lookup;
+  final ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) _lookup;
 
   /// The symbols are looked up in [dynamicLibrary].
   BsdLibC(ffi.DynamicLibrary dynamicLibrary) : _lookup = dynamicLibrary.lookup;
 
   /// The symbols are looked up with [lookup].
-  BsdLibC.fromLookup(
-      ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName)
-          lookup)
-      : _lookup = lookup;
+  BsdLibC.fromLookup(ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) lookup) : _lookup = lookup;
 
   ffi.Pointer<ffi.Int> errno() {
     return _errno();
   }
 
-  late final _errnoPtr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Int> Function()>>('__error');
+  late final _errnoPtr = _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Int> Function()>>('__error');
   late final _errno = _errnoPtr.asFunction<ffi.Pointer<ffi.Int> Function()>();
 
   int fstat(
@@ -38,19 +33,13 @@ class BsdLibC {
     );
   }
 
-  late final _fstatPtr = _lookup<
-          ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Pointer<stat_t>)>>(
-      'fstat');
-  late final _fstat =
-      _fstatPtr.asFunction<int Function(int, ffi.Pointer<stat_t>)>();
+  late final _fstatPtr = _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Pointer<stat_t>)>>('fstat');
+  late final _fstat = _fstatPtr.asFunction<int Function(int, ffi.Pointer<stat_t>)>();
 
   int glob(
     ffi.Pointer<ffi.Char> arg0,
     int arg1,
-    ffi.Pointer<
-            ffi.NativeFunction<
-                ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Int)>>
-        arg2,
+    ffi.Pointer<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Int)>> arg2,
     ffi.Pointer<glob_t> arg3,
   ) {
     return _glob(
@@ -66,18 +55,11 @@ class BsdLibC {
           ffi.Int Function(
               ffi.Pointer<ffi.Char>,
               ffi.Int,
-              ffi.Pointer<
-                  ffi.NativeFunction<
-                      ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Int)>>,
+              ffi.Pointer<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Int)>>,
               ffi.Pointer<glob_t>)>>('glob');
   late final _glob = _globPtr.asFunction<
-      int Function(
-          ffi.Pointer<ffi.Char>,
-          int,
-          ffi.Pointer<
-              ffi.NativeFunction<
-                  ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Int)>>,
-          ffi.Pointer<glob_t>)>();
+      int Function(ffi.Pointer<ffi.Char>, int,
+          ffi.Pointer<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Int)>>, ffi.Pointer<glob_t>)>();
 
   void globfree(
     ffi.Pointer<glob_t> arg0,
@@ -87,11 +69,8 @@ class BsdLibC {
     );
   }
 
-  late final _globfreePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<glob_t>)>>(
-          'globfree');
-  late final _globfree =
-      _globfreePtr.asFunction<void Function(ffi.Pointer<glob_t>)>();
+  late final _globfreePtr = _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<glob_t>)>>('globfree');
+  late final _globfree = _globfreePtr.asFunction<void Function(ffi.Pointer<glob_t>)>();
 
   int lstat(
     ffi.Pointer<ffi.Char> arg0,
@@ -103,12 +82,9 @@ class BsdLibC {
     );
   }
 
-  late final _lstatPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Pointer<ffi.Char>, ffi.Pointer<stat_t>)>>('lstat');
-  late final _lstat = _lstatPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<stat_t>)>();
+  late final _lstatPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<stat_t>)>>('lstat');
+  late final _lstat = _lstatPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<stat_t>)>();
 
   ffi.Pointer<ffi.Void> mmap(
     ffi.Pointer<ffi.Void> arg0,
@@ -130,11 +106,10 @@ class BsdLibC {
 
   late final _mmapPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, ffi.Size,
-              ffi.Int, ffi.Int, ffi.Int, ffi.LongLong)>>('mmap');
-  late final _mmap = _mmapPtr.asFunction<
-      ffi.Pointer<ffi.Void> Function(
-          ffi.Pointer<ffi.Void>, int, int, int, int, int)>();
+          ffi.Pointer<ffi.Void> Function(
+              ffi.Pointer<ffi.Void>, ffi.Size, ffi.Int, ffi.Int, ffi.Int, ffi.LongLong)>>('mmap');
+  late final _mmap =
+      _mmapPtr.asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int, int, int, int, int)>();
 
   int munmap(
     ffi.Pointer<ffi.Void> arg0,
@@ -146,11 +121,8 @@ class BsdLibC {
     );
   }
 
-  late final _munmapPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.Void>, ffi.Size)>>('munmap');
-  late final _munmap =
-      _munmapPtr.asFunction<int Function(ffi.Pointer<ffi.Void>, int)>();
+  late final _munmapPtr = _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Void>, ffi.Size)>>('munmap');
+  late final _munmap = _munmapPtr.asFunction<int Function(ffi.Pointer<ffi.Void>, int)>();
 
   int stat(
     ffi.Pointer<ffi.Char> arg0,
@@ -162,12 +134,9 @@ class BsdLibC {
     );
   }
 
-  late final _statPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Pointer<ffi.Char>, ffi.Pointer<stat_t>)>>('stat');
-  late final _stat = _statPtr
-      .asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<stat_t>)>();
+  late final _statPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<stat_t>)>>('stat');
+  late final _stat = _statPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<stat_t>)>();
 
   int uname(
     ffi.Pointer<utsname_t> arg0,
@@ -177,11 +146,8 @@ class BsdLibC {
     );
   }
 
-  late final _unamePtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<utsname_t>)>>(
-          'uname');
-  late final _uname =
-      _unamePtr.asFunction<int Function(ffi.Pointer<utsname_t>)>();
+  late final _unamePtr = _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<utsname_t>)>>('uname');
+  late final _uname = _unamePtr.asFunction<int Function(ffi.Pointer<utsname_t>)>();
 }
 
 const int ACCESSPERMS = 511;
@@ -207,6 +173,10 @@ const int AT_REMOVEDIR = 128;
 const int AT_SYMLINK_FOLLOW = 64;
 
 const int AT_SYMLINK_NOFOLLOW = 32;
+
+const int AT_SYMLINK_NOFOLLOW_ANY = 2048;
+
+const int AUTH_OPEN_NOAUTHFD = -1;
 
 const int BIG_ENDIAN = 4321;
 
@@ -636,6 +606,8 @@ const int F_ALLOCATEALL = 4;
 
 const int F_ALLOCATECONTIG = 2;
 
+const int F_ALLOCATEPERSIST = 8;
+
 const int F_BARRIERFSYNC = 85;
 
 const int F_CHECK_LV = 98;
@@ -659,6 +631,8 @@ const int F_GETCODEDIR = 72;
 const int F_GETFD = 1;
 
 const int F_GETFL = 3;
+
+const int F_GETLEASE = 107;
 
 const int F_GETLK = 7;
 
@@ -714,6 +688,8 @@ const int F_SETFD = 2;
 
 const int F_SETFL = 4;
 
+const int F_SETLEASE = 106;
+
 const int F_SETLK = 8;
 
 const int F_SETLKW = 9;
@@ -739,6 +715,8 @@ const int F_THAW_FS = 54;
 const int F_TLOCK = 2;
 
 const int F_TRANSCODEKEY = 75;
+
+const int F_TRANSFEREXTENTS = 110;
 
 const int F_TRIM_ACTIVE_FILE = 100;
 
@@ -1046,6 +1024,8 @@ const int MAP_RESILIENT_MEDIA = 16384;
 
 const int MAP_SHARED = 1;
 
+const int MAP_TPRO = 524288;
+
 const int MAP_TRANSLATED_ALLOW_EXECUTE = 131072;
 
 const int MAP_UNIX03 = 262144;
@@ -1082,7 +1062,11 @@ const int MS_KILLPAGES = 4;
 
 const int MS_SYNC = 16;
 
+const int NBBY = 8;
+
 const int NEW_TIME = 4;
+
+const int NFDBITS = 32;
 
 const int NSIG = 32;
 
@@ -1104,6 +1088,8 @@ const int O_CREAT = 512;
 
 const int O_DIRECTORY = 1048576;
 
+const int O_DP_AUTHENTICATE = 4;
+
 const int O_DP_GETRAWENCRYPTED = 1;
 
 const int O_DP_GETRAWUNENCRYPTED = 2;
@@ -1113,6 +1099,8 @@ const int O_DSYNC = 4194304;
 const int O_EVTONLY = 32768;
 
 const int O_EXCL = 2048;
+
+const int O_EXEC = 1073741824;
 
 const int O_EXLOCK = 32;
 
@@ -1133,6 +1121,8 @@ const int O_POPUP = 2147483648;
 const int O_RDONLY = 0;
 
 const int O_RDWR = 2;
+
+const int O_SEARCH = 1074790400;
 
 const int O_SHLOCK = 16;
 
@@ -1266,7 +1256,7 @@ const int RUN_LVL = 1;
 
 const int RUSAGE_CHILDREN = -1;
 
-const int RUSAGE_INFO_CURRENT = 5;
+const int RUSAGE_INFO_CURRENT = 6;
 
 const int RUSAGE_INFO_V0 = 0;
 
@@ -1279,6 +1269,8 @@ const int RUSAGE_INFO_V3 = 3;
 const int RUSAGE_INFO_V4 = 4;
 
 const int RUSAGE_INFO_V5 = 5;
+
+const int RUSAGE_INFO_V6 = 6;
 
 const int RUSAGE_SELF = 0;
 
@@ -1321,6 +1313,8 @@ const int SEGV_ACCERR = 2;
 const int SEGV_MAPERR = 1;
 
 const int SEGV_NOOP = 0;
+
+const int SEM_VALUE_MAX = 32767;
 
 const int SF_APPEND = 262144;
 
@@ -1852,27 +1846,15 @@ final class glob_t extends ffi.Struct {
 
   external ffi.Pointer<ffi.Pointer<ffi.Char>> gl_pathv;
 
-  external ffi
-          .Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>
-      gl_closedir;
+  external ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>> gl_closedir;
 
-  external ffi.Pointer<
-      ffi.NativeFunction<
-          ffi.Pointer<dirent> Function(ffi.Pointer<ffi.Void>)>> gl_readdir;
+  external ffi.Pointer<ffi.NativeFunction<ffi.Pointer<dirent> Function(ffi.Pointer<ffi.Void>)>> gl_readdir;
 
-  external ffi.Pointer<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Char>)>> gl_opendir;
+  external ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Char>)>> gl_opendir;
 
-  external ffi.Pointer<
-          ffi.NativeFunction<
-              ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<stat_t>)>>
-      gl_lstat;
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<stat_t>)>> gl_lstat;
 
-  external ffi.Pointer<
-          ffi.NativeFunction<
-              ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<stat_t>)>>
-      gl_stat;
+  external ffi.Pointer<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Pointer<stat_t>)>> gl_stat;
 }
 
 final class passwd_t extends ffi.Struct {
